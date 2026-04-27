@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tout Cargo Flow Control</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Tout Cargo</p>
+        <h1>Flow Control</h1>
+      </div>
+      <div class="header-actions">
+        <button id="resetBtn" class="ghost">Reset</button>
+        <button id="exportBtn">Export JSON</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="summary-grid" aria-label="Project summary">
+        <div class="metric">
+          <span>Open tasks</span>
+          <strong id="openTasks">0</strong>
+        </div>
+        <div class="metric">
+          <span>High priority</span>
+          <strong id="highTasks">0</strong>
+        </div>
+        <div class="metric">
+          <span>Ready AWBs</span>
+          <strong id="readyAwbs">0</strong>
+        </div>
+        <div class="metric">
+          <span>Critical gaps</span>
+          <strong id="criticalGaps">0</strong>
+        </div>
+      </section>
+
+      <nav class="tabs" aria-label="Views">
+        <button class="tab active" data-view="plan">Project Plan</button>
+        <button class="tab" data-view="flow">Cargo Flow</button>
+        <button class="tab" data-view="awbs">AWB Desk</button>
+        <button class="tab" data-view="readiness">Readiness</button>
+      </nav>
+
+      <section id="plan" class="view active">
+        <div class="toolbar">
+          <label>
+            Search
+            <input id="taskSearch" type="search" placeholder="Task, owner, priority" />
+          </label>
+          <label>
+            Owner
+            <select id="ownerFilter"></select>
+          </label>
+          <label>
+            Priority
+            <select id="priorityFilter">
+              <option value="all">All</option>
+              <option value="HIGH">High</option>
+              <option value="NORMAL">Normal</option>
+            </select>
+          </label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Work item</th>
+                <th>Priority</th>
+                <th>Owner</th>
+                <th>Start</th>
+                <th>Finish</th>
+                <th>Role impact</th>
+              </tr>
+            </thead>
+            <tbody id="taskTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="flow" class="view">
+        <div class="flow-layout">
+          <article class="flow-map" aria-label="Cargo flow">
+            <div class="node">Product purchase / sales order</div>
+            <div class="connector"></div>
+            <div class="node buyer">Tout Cargo as buyer / seller</div>
+            <div class="connector"></div>
+            <div class="node">Security status and booking</div>
+            <div class="connector"></div>
+            <div class="node">AWB and export documents</div>
+            <div class="connector"></div>
+            <div class="node forwarder">Tout Cargo as forwarder</div>
+            <div class="connector"></div>
+            <div class="node">Carrier-domain acceptance</div>
+            <div class="connector"></div>
+            <div class="node airline">7 AIR / Airliner</div>
+            <div class="connector"></div>
+            <div class="node">Flight build-up and manifest</div>
+            <div class="connector"></div>
+            <div class="node">Destination handling and delivery</div>
+          </article>
+          <aside class="panel">
+            <h2>Responsibility Model</h2>
+            <div id="responsibilityCards" class="stack"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="awbs" class="view">
+        <form id="awbForm" class="awb-form">
+          <label>
+            AWB number
+            <input name="awb" required placeholder="e.g. 001-12345675" />
+          </label>
+          <label>
+            Origin
+            <select name="origin">
+              <option>CAY</option>
+              <option>FDF</option>
+              <option>MIA</option>
+            </select>
+          </label>
+          <label>
+            Destination
+            <select name="destination">
+              <option>FDF</option>
+              <option>CAY</option>
+              <option>MIA</option>
+            </select>
+          </label>
+          <label>
+            Product
+            <input name="product" required placeholder="Seafood, produce, pharma..." />
+          </label>
+          <label>
+            Cargo value
+            <input name="value" type="number" min="0" step="1" placeholder="0" />
+          </label>
+          <label>
+            Status
+            <select name="status">
+              <option>Draft booking</option>
+              <option>Booked</option>
+              <option>Accepted</option>
+              <option>Customs cleared</option>
+              <option>Flown</option>
+              <option>Delivered</option>
+            </select>
+          </label>
+          <button type="submit">Add AWB</button>
+        </form>
+        <div id="awbList" class="cards"></div>
+      </section>
+
+      <section id="readiness" class="view">
+        <div class="readiness-grid">
+          <div>
+            <h2>Launch Gates</h2>
+            <div id="gateList" class="stack"></div>
+          </div>
+          <div>
+            <h2>Simulation</h2>
+            <div id="simulationList" class="stack"></div>
+          </div>
+          <div>
+            <h2>Established Process Check</h2>
+            <div id="processCheckList" class="stack"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"><\/script>
+  </body>
+</html>
